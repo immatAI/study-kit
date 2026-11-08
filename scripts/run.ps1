@@ -5,6 +5,7 @@ param(
     [string]$DropPages = ""
 )
 $ErrorActionPreference = 'Stop'
+if ($env:OS -ne 'Windows_NT') { throw 'Study Kit currently requires Windows (Windows.Media.Ocr).' }
 $Py = $env:STUDY_KIT_PYTHON
 if (-not $Py) { $Py = 'python' }
 if (-not (Get-Command $Py -ErrorAction SilentlyContinue) -and -not (Test-Path -LiteralPath $Py)) {
@@ -25,7 +26,10 @@ if ($LASTEXITCODE -ne 0) { throw "assemble.py failed: $LASTEXITCODE" }
 
 $sanArgs = @('-X', 'utf8', (Join-Path $PSScriptRoot 'sanitize.py'), '--dir', $Out)
 if ($DropPages) { $sanArgs += @('--drop-pages', $DropPages) }
-& $Py @sanArgs
+& $Py -X utf8 (Join-Path $PSScriptRoot 'sanitize.py') --dir $Out --drop-pages $DropPages
 if ($LASTEXITCODE -ne 0) { throw "sanitize.py failed: $LASTEXITCODE" }
+if (-not (Test-Path -LiteralPath (Join-Path $Out 'extracted.sanitized.md'))) {
+    throw 'sanitized output missing; check the pipeline logs'
+}
 
 Write-Output ("done: " + (Join-Path $Out 'extracted.sanitized.md'))

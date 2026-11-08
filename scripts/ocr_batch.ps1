@@ -2,6 +2,7 @@ param(
     [Parameter(Mandatory = $true)][string]$Dir
 )
 $ErrorActionPreference = 'Stop'
+if (-not (Test-Path -LiteralPath $Dir)) { throw "image dir not found: $Dir" }
 Add-Type -AssemblyName System.Runtime.WindowsRuntime
 $asTaskGeneric = ([System.WindowsRuntimeSystemExtensions].GetMethods() | Where-Object {
     $_.Name -eq 'AsTask' -and $_.GetParameters().Count -eq 1 -and
@@ -18,6 +19,7 @@ function Await($operation, [Type]$type) {
 [Windows.Media.Ocr.OcrEngine, Windows.Foundation, ContentType = WindowsRuntime] | Out-Null
 $engine = [Windows.Media.Ocr.OcrEngine]::TryCreateFromUserProfileLanguages()
 $files = Get-ChildItem -LiteralPath $Dir -File | Where-Object { $_.Extension -in '.jpg', '.png' }
+if (-not $files) { Write-Output 'ok=0 fail=0 (no images)'; return }
 $ok = 0; $fail = 0
 foreach ($f in $files) {
     try {
