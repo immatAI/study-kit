@@ -60,7 +60,7 @@ Or call the scripts directly (same commands as below).
 
 `.\dsh\skills\study-kit\SKILL.md` 是同一套脚本的 DSH skill 入口；复制到自己的 `.dsh/skills/` 即可用。
 
-## Demo (synthetic, no internal content)
+## Demo (synthetic)
 
 ```powershell
 # 1) 生成 3 页合成 PDF（第 1 页是课程介绍/联系人，应被清洗）
@@ -100,7 +100,7 @@ demo/out/
 - P2：DSH skill/CLI 打包、GitHub 发布、方法文章；只用合成数据。
 - 指标：5 次有效对话，或 30–100 stars，或 1 个合作线索；无信号就保持内部工具。
 
-## Red line
+## Data handling
 
-- 不包含任何内部课程内容、讲师信息、本机路径、凭据。
-- 公开 demo 只用合成数据。
+- 全程本地处理；demo 使用合成数据。
+- 清洗阶段移除无价值页和敏感信息；高风险资料仍需人工复核。
