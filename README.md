@@ -54,6 +54,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tests\smoke.ps1
 
 Or call the scripts directly (same commands as below).
 
+## DSH skill
+
+`.\dsh\skills\study-kit\SKILL.md` 是同一套脚本的 DSH skill 入口；复制到自己的 `.dsh/skills/` 即可用。
+
 ## Demo (synthetic, no internal content)
 
 ```powershell

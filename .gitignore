@@ -3,4 +3,5 @@ __pycache__/
 demo/out*/
 demo/*.bak
 PLAN.md
+LAUNCH.md
 .receipts/
