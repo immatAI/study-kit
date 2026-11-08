@@ -1,6 +1,6 @@
 # Study Kit (prototype)
 
-> [Release v0.1.0](https://github.com/immatAI/study-kit/releases/tag/v0.1.0) · ![ci](https://github.com/immatAI/study-kit/actions/workflows/ci.yml/badge.svg)
+> [Release v0.1.0](https://github.com/immatAI/study-kit/releases/tag/v0.1.0) · [Landing page](https://immatAI.github.io/study-kit/) · ![ci](https://github.com/immatAI/study-kit/actions/workflows/ci.yml/badge.svg)
 
 > **Turn image-only PDFs into sanitized, traceable Markdown notes — locally, no external API.**
 > 把图片型 PDF 变成“可检索、已清洗、可核对”的 Markdown 笔记；只在本机跑，不调用外部模型。
