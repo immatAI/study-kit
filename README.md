@@ -42,6 +42,18 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tests\smoke.ps1
 
 覆盖：pipeline → 丢课程页 → approve → verify → 篡改检测 → dedupe。
 
+## Quick start
+
+```powershell
+# one entry point (run / approve / verify / dedupe)
+.\study-kit.ps1 run -Pdf demo\slides.pdf -Out demo\out -DropPages 1
+.\study-kit.ps1 approve --dir demo\out --by reviewer
+.\study-kit.ps1 verify  --dir demo\out
+.\study-kit.ps1 dedupe  --draft demo\out\extracted.sanitized.md --existing demo\existing
+```
+
+Or call the scripts directly (same commands as below).
+
 ## Demo (synthetic, no internal content)
 
 ```powershell
