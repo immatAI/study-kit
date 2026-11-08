@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-"""Remove course intro / personal info / promo pages from extracted.md.
+"""Remove low-value / personal info / promo pages from extracted.md.
 
-Default: drop pages containing personal/promo keywords, redact emails/phones
-and the instructor name if it still appears in kept pages. Page numbers stay
-as original page markers, so citations still point at the PDF.
+Default: drop pages containing promo/personal/boilerplate keywords, and redact
+emails/phones in kept pages. Page numbers stay as original page markers, so
+citations still point at the PDF.
 
 Usage:
   python sanitize.py --dir <out> --drop-pages 1-3
@@ -16,8 +16,8 @@ import json
 import re
 from pathlib import Path
 
-# Course/promo/personal markers. Keep this list specific; don't drop ordinary
-# knowledge pages just because they mention "课程".
+# Promo/personal/boilerplate markers. Keep this list specific; don't drop
+# ordinary knowledge pages that merely mention a generic word like "course".
 DROP_KEYWORDS = [
     "个人介绍", "讲师", "报名", "扫码", "二维码", "微信", "电话", "邮箱",
     "今晚", "试听", "客服", "价格", "公众号", "课程咨询", "联系我",

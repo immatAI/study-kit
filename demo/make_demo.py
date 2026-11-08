@@ -35,11 +35,10 @@ def page(title: str, lines: list[str]) -> Image.Image:
 
 def main() -> None:
     pages = [
-        page("Course Intro", [
-            "Instructor: John Doe",
-            "Contact: john@example.com",
-            "Tonight 8:00 PM, Room 101",
-            "This page is promo/personal info and must be dropped.",
+        page("Cover / Notice", [
+            "Owner: Example Team",
+            "Contact: hello@example.com",
+            "This page is an unrelated cover and must be dropped.",
         ]),
         page("Chapter 1: Gradient Descent", [
             "Loss = mean((y - y_hat)^2)",

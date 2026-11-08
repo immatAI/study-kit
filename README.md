@@ -7,16 +7,15 @@
 
 ## Why
 
-- 很多课程/扫描资料是 **图片 PDF**：pypdf 抽不出文字，直接丢给模型又贵、又容易把个人信息/课程营销带进知识库。
+- 很多扫描件/截图资料是 **图片 PDF**：pypdf 抽不出文字，直接丢给模型又贵、又容易把无价值页和敏感信息带进知识库。
 - 现有工具通常只做“OCR”或“总结”，很少把 **清洗、去重、审批回执** 串起来。
-- Study Kit 的目标：本地 OCR → 规则清洗（课程介绍/个人信息/推广页）→ Markdown → 审批回执；全程可核对。
+- Study Kit 的目标：本地 OCR → 规则清洗（无价值页/敏感信息）→ Markdown → 审批回执；全程可核对。
 
 ## Status
 
-**P0 done + P1 partial**：抽图 + Windows OCR + 规则清洗 + 合成 PDF demo；审批回执、去重、冒烟测试已可用。
-P1 剩余：打包、去本机路径/特定 venv、错误处理；P2 才考虑公开。
+**Prototype / P1 done + P2 public**：抽图 + Windows OCR + 规则清洗 + 合成 demo；回执、去重、冒烟测试、CLI、DSH skill 已可用；已发布 GitHub / Release / Pages。
 
-Demo 实测：3 页合成 PDF，第 1 页（课程介绍/联系人）被清洗，保留 2 页知识页；OCR 文本有错字，符合预期。
+Demo 实测：3 页合成 PDF，第 1 页（封面/联系页）被清洗，保留 2 页知识页；OCR 文本有错字，符合预期。
 
 ## Receipt (approval)
 
@@ -42,7 +41,7 @@ python scripts\dedupe.py --draft demo\out-keywords\extracted.sanitized.md `
 powershell -NoProfile -ExecutionPolicy Bypass -File tests\smoke.ps1
 ```
 
-覆盖：pipeline → 丢课程页 → approve → verify → 篡改检测 → dedupe。
+覆盖：pipeline → 丢无关页 → approve → verify → 篡改检测 → dedupe。
 
 ## Quick start
 
@@ -63,7 +62,7 @@ Or call the scripts directly (same commands as below).
 ## Demo (synthetic)
 
 ```powershell
-# 1) 生成 3 页合成 PDF（第 1 页是课程介绍/联系人，应被清洗）
+# 1) 生成 3 页合成 PDF（第 1 页是封面/联系页，应被清洗）
 python demo\make_demo.py
 
 # 2) 跑本地流水线，显式丢弃第 1 页
@@ -77,7 +76,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\run.ps1 `
 demo/out/
 ├── extracted.sanitized.md   # 只留知识页，已清洗
 ├── sanitize-report.json     # 丢了哪些页、脱敏了什么
-└── stats.json
+├── stats.json
+├── receipt.approved.json    # approve 后生成
+└── receipts.jsonl           # 回执链
 ```
 
 ## Requirements
@@ -91,14 +92,16 @@ demo/out/
 
 - 只 OCR 每页最大图；一页多图可能漏内容。
 - OCR 有错字/空格/大小写问题，公式/表格/结构图要回看原 PDF。
-- 规则清洗不能保证 100% 去除个人信息；高风险资料仍需人工复核。
-- 去重/回执尚未实现（P1）。
+- 规则清洗不能保证 100% 去除敏感信息；高风险资料仍需人工复核。
+- 仍是 prototype，接口可能变化；当前离线 OCR 仅支持 Windows。
 
-## Roadmap
+## Next
 
-- P1：去重（对比已有 Markdown 标题/关键词）、审批回执（源文件哈希 + 清洗报告哈希 + 批准人 + 链式记录）、测试。
-- P2：DSH skill/CLI 打包、GitHub 发布、方法文章；只用合成数据。
-- 指标：5 次有效对话，或 30–100 stars，或 1 个合作线索；无信号就保持内部工具。
+- 跨平台 OCR backend（macOS/Linux）。
+- 可配置的清洗规则（YAML）。
+- DSH 市场/技能上架；按真实反馈决定优先级。
+
+指标：5 次有效对话，或 30–100 stars，或 1 个合作线索；无信号就保持本地工具。
 
 ## Data handling
 
