@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+demo/out*/
+demo/*.bak
+PLAN.md
+.receipts/
