@@ -20,8 +20,8 @@ Demo 实测：3 页合成 PDF，第 1 页（封面/联系页）被清洗，保�
 ## Receipt (approval)
 
 ```powershell
-python scripts\receipt.py approve --dir demo\out-keywords --by reviewer
-python scripts\receipt.py verify  --dir demo\out-keywords
+python scripts\receipt.py approve --dir demo\out --by reviewer
+python scripts\receipt.py verify  --dir demo\out
 ```
 
 回执记录源 PDF 哈希、清洗后 Markdown 哈希、清洗报告哈希、批准人、时间、前序哈希；`verify` 会重算并检查链。
@@ -29,7 +29,7 @@ python scripts\receipt.py verify  --dir demo\out-keywords
 ## Dedupe
 
 ```powershell
-python scripts\dedupe.py --draft demo\out-keywords\extracted.sanitized.md `
+python scripts\dedupe.py --draft demo\out\extracted.sanitized.md `
   --existing demo\existing --json
 ```
 
